@@ -1,7 +1,11 @@
 .venv
 .env
-__pycache__
+
+config/__pycache__
 __init__.cpython-312.pyc
 settings.cpython-312.pyc
 urls.cpython-312.pyc
 wsgi.cpython-312.pyc
+
+__pycache__/
+
