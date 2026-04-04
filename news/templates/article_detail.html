@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Détail article{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <!-- ARTICLE -->
+  <div class="card mb-5">
+    <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
+
+    <div class="card-body">
+      Categorie: <span class="badge bg-secondary mb-2">Athlétisme</span>
+
+      <h2 class="fw-bold">Finale Athlétisme JOJ</h2>
+      <p class="text-muted">Par Admin • Aujourd’hui</p>
+
+      <p class="mt-4">
+        Une compétition exceptionnelle marquée par des performances hors du commun.
+      </p>
+    </div>
+  </div>
+
+  <!-- COMMENTAIRES -->
+  <div class="mb-5">
+    <h4>Commentaires</h4>
+
+    <!-- COMMENTAIRE 1 (propriétaire) -->
+    <div class="border rounded p-3 mb-3">
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong>Aliou</strong>
+          <small class="text-muted">Aujourd’hui</small>
+        </div>
+
+        <!-- Actions -->
+        <div>
+          <a href="#" class="btn btn-sm btn-outline-warning">Modifier</a>
+          <a href="#" class="btn btn-sm btn-outline-danger">Supprimer</a>
+        </div>
+      </div>
+
+      <p class="mt-2">Incroyable compétition</p>
+    </div>
+
+    <!-- COMMENTAIRE 2 (autre utilisateur) -->
+    <div class="border rounded p-3 mb-3">
+      <strong>Adji</strong>
+      <small class="text-muted">Aujourd’hui</small>
+      <p>Très bon article</p>
+    </div>
+
+  </div>
+
+  <!-- FORMULAIRE -->
+  <div>
+    <h5>Ajouter un commentaire</h5>
+
+    <form>
+      <textarea class="form-control mb-2" placeholder="Votre commentaire"></textarea>
+      <button class="btn btn-success">Publier</button>
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}

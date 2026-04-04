@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero mb-5">
+  <h1 class="fw-bold">🏅 JOJ News Dakar 2026</h1>
+  <p class="lead">Le Journal Officiel des Supporters</p>
+  <a href="#" class="btn btn-light mt-3">Voir les articles</a>
+</section>
+
+<!-- ARTICLES -->
+<div class="row">
+
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Finale Athlétisme</h5>
+        <p class="text-muted">Par Admin • Aujourd’hui</p>
+        <p>Une finale spectaculaire avec des performances incroyables...</p>
+        <a href="#" class="btn btn-primary btn-sm">Lire plus →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Natation JOJ</h5>
+        <p class="text-muted">Par Admin • Aujourd’hui</p>
+        <p>Les jeunes talents brillent dans les bassins...</p>
+        <a href="#" class="btn btn-primary btn-sm">Lire plus →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">Basket Finale</h5>
+        <p class="text-muted">Par Admin • Aujourd’hui</p>
+        <p>Un match intense jusqu’à la dernière seconde...</p>
+        <a href="#" class="btn btn-primary btn-sm">Lire plus →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

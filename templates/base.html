@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}JOJ NEWS{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Reggae+One&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0085C7;
+      --accent: #F4C300;
+      --green: #009F6B;
+      --dark: #0d1117;
+      --light: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f6fa;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .navbar-brand {
+      font-family: "Reggae One", cursive;
+      font-size: 1.4rem;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(120deg, var(--primary), var(--green));
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+      border-radius: 0 0 20px 20px;
+    }
+
+    /* CARDS */
+    .card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    /* FOOTER */
+    footer {
+      background: white;
+      border-top: 1px solid #ddd;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white px-4">
+  <div class="container">
+
+    <a class="navbar-brand" href="{% url 'home' %}">🏅 JOJ NEWS</a>
+
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+
+      <!-- MENU GAUCHE -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'liste_article' %}">Articles</a>
+        </li>
+      </ul>
+
+      <!-- MENU DROIT (AUTH) -->
+      <ul class="navbar-nav">
+
+        <!-- SIMULATION utilisateur connecté -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            Aliou
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Mon profil</a></li>
+            <li><a class="dropdown-item text-danger" href="#">Déconnexion</a></li>
+          </ul>
+        </li>
+
+        {% comment %} SIMULATION utilisateur NON connecté  {% endcomment %}
+        
+        <li class="nav-item">
+          <a class="nav-link " href="#">Connexion</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary btn-sm ms-2" href="#">Inscription</a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+<!-- CONTENU -->
+<main class="container mt-4">
+  {% block content %}
+  {% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer class="py-3 text-center">
+  <p class="mb-0">© 2026 JOJ NEWS - Dakar</p>
+</footer>
+
+<!-- JS Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
