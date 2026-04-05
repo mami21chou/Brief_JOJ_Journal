@@ -1,5 +1,5 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,get_object_or_404
+from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -16,9 +16,11 @@ class InscriptionView(CreateView):
 def home(request):
     return render(request, 'index.html')
 
-def liste_artciles(request):
-    return render(request, 'article_list.html')
+def liste_article(request):
+    articles=Article.objects.all()
+    return render(request, 'article_list.html',{'articles':articles})
 
-def  detail_article(request):
-    return render(request, 'article_detail.html')    
+def  detail_article(request,id):
+    details=get_object_or_404(Article,pk=id)
+    return render(request, 'article_detail.html',{'details':details})    
 

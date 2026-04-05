@@ -7,17 +7,18 @@
 <div class="container">
 
   <!-- ARTICLE -->
+
   <div class="card mb-5">
-    <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
+    <img src="{{details.image.url}}" class="card-img-top">
 
     <div class="card-body">
-      Categorie: <span class="badge bg-secondary mb-2">Athlétisme</span>
+      Categorie: <span class="badge bg-secondary mb-2">{{details.categorie}}</span>
 
-      <h2 class="fw-bold">Finale Athlétisme JOJ</h2>
-      <p class="text-muted">Par Admin • Aujourd’hui</p>
+      <h2 class="fw-bold">{{details.titre}}</h2>
+      <p class="text-muted">{{details.user}}</p>
 
       <p class="mt-4">
-        Une compétition exceptionnelle marquée par des performances hors du commun.
+      {{details.contenu}}      
       </p>
     </div>
   </div>

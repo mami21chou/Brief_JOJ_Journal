@@ -130,14 +130,20 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Dossier static à la racine
+STATIC_ROOT = BASE_DIR / 'staticfiles'    
 
 
 
 LOGIN_URL='login'
-LOGIN_REDIRECT='/'
-LOGOUT_REDIRECT='/'
+LOGIN_REDIRECT='liste_article'
+LOGOUT_REDIRECT='home'
+LOGIN_REDIRECT_URL = 'liste_article'
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
