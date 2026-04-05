@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Suppression commentaire{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="card shadow-sm p-4 text-center">
+
+    <h4 class="mb-3 text-danger">Confirmation</h4>
+
+    <p>
+      Êtes-vous sûr de vouloir supprimer ce commentaire :
+      <br>
+      <strong>"{{ commentaire.message }}"</strong>
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-danger">
+          Oui, supprimer
+        </button>
+
+        <a href="{% url 'detail_article' commentaire.article.id %}" class="btn btn-secondary">
+          Annuler
+        </a>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+{% endblock %}

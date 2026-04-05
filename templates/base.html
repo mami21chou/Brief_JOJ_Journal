@@ -106,25 +106,30 @@
       <!-- MENU DROIT (AUTH) -->
       <ul class="navbar-nav">
 
-        <!-- SIMULATION utilisateur connecté -->
+        {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-            Aliou
+          Bonjour, <strong>{{user.username }}</strong>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Mon profil</a></li>
-            <li><a class="dropdown-item text-danger" href="#">Déconnexion</a></li>
-          </ul>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Mon profil</a></li>
+
+              <form method='POST' action="{% url 'logout' %}">
+                {% csrf_token %}
+                <li><button class="dropdown-item btn btn-danger">Déconnexion</button></li>
+              </form>
+              
+            </ul>
         </li>
 
-        {% comment %} SIMULATION utilisateur NON connecté  {% endcomment %}
-        
+       {% else %}
         <li class="nav-item">
-          <a class="nav-link " href="{% url "login" %}">Connexion</a>
+          <a class="nav-link" href="{% url 'login' %}">Connexion</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-primary btn-sm ms-2" href="{% url "inscription" %}">Inscription</a>
+          <a class="btn btn-primary btn-sm ms-2" href="{% url 'inscription' %}">Inscription</a>
         </li>
+        {% endif %}
         
 
       </ul>

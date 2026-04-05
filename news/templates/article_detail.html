@@ -7,18 +7,22 @@
 <div class="container">
 
   <!-- ARTICLE -->
-
   <div class="card mb-5">
-    <img src="{{details.image.url}}" class="card-img-top">
+    {% if  article.image %}
+      <img src="{{ article.image.url }}" class="card-img-top">
+      
+    {% else %}
+      <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
+    {% endif %}
 
     <div class="card-body">
-      Categorie: <span class="badge bg-secondary mb-2">{{details.categorie}}</span>
+      Categorie: <span class="badge bg-secondary mb-2">{{ article.categorie }}</span>
 
-      <h2 class="fw-bold">{{details.titre}}</h2>
-      <p class="text-muted">{{details.user}}</p>
+      <h2 class="fw-bold">{{ article.titre }}</h2>
+      <p class="text-muted">Publié par {{ article.user }} • le {{ article.date_publication }}</p>
 
       <p class="mt-4">
-      {{details.contenu}}      
+        {{ article.contenu }}
       </p>
     </div>
   </div>
@@ -27,42 +31,42 @@
   <div class="mb-5">
     <h4>Commentaires</h4>
 
-    <!-- COMMENTAIRE 1 (propriétaire) -->
+    {% for commentaire in commentaires %}
     <div class="border rounded p-3 mb-3">
       <div class="d-flex justify-content-between">
         <div>
-          <strong>Aliou</strong>
-          <small class="text-muted">Aujourd’hui</small>
+          <strong>{{commentaire.user}}</strong>
+          <small class="text-muted">{{commentaire.date_publication}}</small>
         </div>
 
         <!-- Actions -->
-        <div>
-          <a href="#" class="btn btn-sm btn-outline-warning">Modifier</a>
-          <a href="#" class="btn btn-sm btn-outline-danger">Supprimer</a>
-        </div>
+        {% if user == commentaire.user %}
+          <div>
+            <a href="{% url 'modifier_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-warning">Modifier</a>
+            <a href="{% url 'supprimer_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+          </div>
+        {% endif %}
       </div>
 
-      <p class="mt-2">Incroyable compétition</p>
+      <p class="mt-2">{{commentaire.message}}</p>
     </div>
 
-    <!-- COMMENTAIRE 2 (autre utilisateur) -->
-    <div class="border rounded p-3 mb-3">
-      <strong>Adji</strong>
-      <small class="text-muted">Aujourd’hui</small>
-      <p>Très bon article</p>
-    </div>
-
+    {% empty %}
+      <p>Aucun commentaire pour cet article</p>
+    {% endfor %}
   </div>
-
-  <!-- FORMULAIRE -->
+  {% if user.is_authenticated %}
   <div>
-    <h5>Ajouter un commentaire</h5>
-
-    <form>
-      <textarea class="form-control mb-2" placeholder="Votre commentaire"></textarea>
-      <button class="btn btn-success">Publier</button>
+  
+    <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <button class="btn btn-success mt-2">Publier</button>
     </form>
   </div>
+  {% else %}
+  <p class="text-muted">Connectez-vous pour commenter</p>
+  {% endif %}
 
 </div>
 

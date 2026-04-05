@@ -77,6 +77,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
@@ -140,7 +142,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 LOGIN_URL='login'
 LOGIN_REDIRECT='liste_article'
-LOGOUT_REDIRECT='home'
+LOGOUT_REDIRECT_URL='home'
 LOGIN_REDIRECT_URL = 'liste_article'
 
 
