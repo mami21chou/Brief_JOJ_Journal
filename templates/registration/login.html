@@ -9,9 +9,9 @@
 
           <h2 class="text-center mb-4">Connexion</h2>
 
-{% if form.errors %}
-<p style='color:red;'>Votre nom d'utilisateur et mot de passe ne correspondent pas veuillez reessayer.</p>
-{% endif %}
+        {% if form.errors %}
+        <p style='color:red;'>Votre nom d'utilisateur et mot de passe ne correspondent pas veuillez reessayer.</p>
+        {% endif %}
 
     <form method="post">
         {% csrf_token %}
