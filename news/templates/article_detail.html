@@ -1,73 +1,105 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Détail article{% endblock %}
+{% block title %}{{ article.titre }} — JOJ NEWS{% endblock %}
 
 {% block content %}
+<div class="container py-4" style="max-width:820px">
 
-<div class="container">
+  <!-- BREADCRUMB -->
+  <nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb breadcrumb-joj">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'liste_article' %}">Articles</a></li>
+      <li class="breadcrumb-item active">{{ article.titre|truncatewords:6 }}</li>
+    </ol>
+  </nav>
 
   <!-- ARTICLE -->
-  <div class="card mb-5">
-    {% if  article.image %}
-      <img src="{{ article.image.url }}" class="card-img-top">
-      
+  <div class="card article-card mb-4">
+    {% if article.image %}
+      <img src="{{ article.image.url }}" class="card-img-top article-hero-img" alt="{{ article.titre }}">
     {% else %}
-      <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
+      <img src="{% static 'images/joj.jpeg' %}" class="card-img-top article-hero-img" alt="JOJ Dakar 2026">
     {% endif %}
 
-    <div class="card-body">
-      Categorie: <span class="badge bg-secondary mb-2">{{ article.categorie }}</span>
+    <div class="card-body p-4">
+      <span class="badge bg-secondary mb-3">{{ article.categorie }}</span>
+      <h1 class="fw-bold mb-2" style="font-size:1.6rem;line-height:1.35">{{ article.titre }}</h1>
 
-      <h2 class="fw-bold">{{ article.titre }}</h2>
-      <p class="text-muted">Publié par {{ article.user }} • le {{ article.date_publication }}</p>
+      <div class="article-meta mb-4">
+        <span><i class="bi bi-person-fill me-1"></i>{{ article.user }}</span>
+        <span class="mx-2 text-muted">•</span>
+        <span><i class="bi bi-calendar3 me-1"></i>{{ article.date_publication }}</span>
+      </div>
 
-      <p class="mt-4">
+      <div class="article-content">
         {{ article.contenu }}
-      </p>
+      </div>
     </div>
   </div>
 
   <!-- COMMENTAIRES -->
-  <div class="mb-5">
-    <h4>Commentaires</h4>
+  <div class="comments-section mb-4">
+    <div class="section-heading">
+      <i class="bi bi-chat-dots"></i>
+      Commentaires
+      <span class="comments-count">{{ commentaires|length }}</span>
+    </div>
 
     {% for commentaire in commentaires %}
-    <div class="border rounded p-3 mb-3">
-      <div class="d-flex justify-content-between">
-        <div>
-          <strong>{{commentaire.user}}</strong>
-          <small class="text-muted">{{commentaire.date_publication}}</small>
-        </div>
-
-        <!-- Actions -->
-        {% if user == commentaire.user %}
+    <div class="comment-card">
+      <div class="comment-header">
+        <div class="d-flex align-items-center gap-2">
+          <div class="comment-avatar">{{ commentaire.user|stringformat:"s"|first|upper }}</div>
           <div>
-            <a href="{% url 'modifier_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-warning">Modifier</a>
-            <a href="{% url 'supprimer_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+            <div class="comment-name">{{ commentaire.user }}</div>
+            <div class="comment-date">{{ commentaire.date_publication }}</div>
           </div>
+        </div>
+        {% if user == commentaire.user %}
+        <div class="d-flex gap-2">
+          <a href="{% url 'modifier_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-warning btn-comment-action">
+            <i class="bi bi-pencil me-1"></i>Modifier
+          </a>
+          <a href="{% url 'supprimer_commentaire' commentaire.id %}" class="btn btn-sm btn-outline-danger btn-comment-action">
+            <i class="bi bi-trash me-1"></i>Supprimer
+          </a>
+        </div>
         {% endif %}
       </div>
-
-      <p class="mt-2">{{commentaire.message}}</p>
+      <p class="comment-text">{{ commentaire.message }}</p>
     </div>
 
     {% empty %}
-      <p>Aucun commentaire pour cet article</p>
+    <div class="no-comments">
+      <i class="bi bi-chat-dots" style="font-size:1.8rem;color:#ddd;display:block;margin-bottom:.5rem"></i>
+      Aucun commentaire pour cet article. Soyez le premier !
+    </div>
     {% endfor %}
   </div>
+
+  <!-- FORMULAIRE COMMENTAIRE -->
   {% if user.is_authenticated %}
-  <div>
-  
+  <div class="comment-form-box">
+    <div class="comment-form-title">
+      <i class="bi bi-pencil-square me-2"></i>Laisser un commentaire
+    </div>
     <form method="post">
       {% csrf_token %}
-      {{ form }}
-      <button class="btn btn-success mt-2">Publier</button>
+      <div class="mb-3">
+        {{ form.message }}
+      </div>
+      <button type="submit" class="btn btn-success px-4">
+        <i class="bi bi-send me-2"></i>Publier
+      </button>
     </form>
   </div>
   {% else %}
-  <p class="text-muted">Connectez-vous pour commenter</p>
+  <div class="login-prompt">
+    <i class="bi bi-lock me-2"></i>
+    <a href="{% url 'login' %}">Connectez-vous</a> pour laisser un commentaire.
+  </div>
   {% endif %}
 
 </div>
-
 {% endblock %}

@@ -1,38 +1,37 @@
 {% extends "base.html" %}
-
-{% block title %}Suppression commentaire{% endblock %}
+{% block title %}Supprimer le commentaire — JOJ NEWS{% endblock %}
 
 {% block content %}
+<div class="container py-5" style="max-width:520px">
 
-<div class="container mt-5">
+  <div class="card form-page-card text-center">
+    <div class="card-body p-4">
 
-  <div class="card shadow-sm p-4 text-center">
-
-    <h4 class="mb-3 text-danger">Confirmation</h4>
-
-    <p>
-      Êtes-vous sûr de vouloir supprimer ce commentaire :
-      <br>
-      <strong>"{{ commentaire.message }}"</strong>
-    </p>
-
-    <form method="post">
-      {% csrf_token %}
-
-      <div class="d-flex justify-content-center gap-3 mt-4">
-        <button type="submit" class="btn btn-danger">
-          Oui, supprimer
-        </button>
-
-        <a href="{% url 'detail_article' commentaire.article.id %}" class="btn btn-secondary">
-          Annuler
-        </a>
+      <div class="form-page-icon icon-danger">
+        <i class="bi bi-trash-fill"></i>
       </div>
 
-    </form>
+      <h3 class="form-page-title text-danger">Supprimer ce commentaire ?</h3>
+      <p class="form-page-subtitle">Cette action est <strong>irréversible</strong>.</p>
 
+      <div class="delete-quote">
+        "{{ commentaire.message }}"
+      </div>
+
+      <form method="post">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <button type="submit" class="btn btn-danger px-4">
+            <i class="bi bi-trash me-2"></i>Oui, supprimer
+          </button>
+          <a href="{% url 'detail_article' commentaire.article.id %}" class="btn btn-light px-4">
+            Annuler
+          </a>
+        </div>
+      </form>
+
+    </div>
   </div>
 
 </div>
-
 {% endblock %}

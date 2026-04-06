@@ -4,14 +4,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .views import InscriptionView
 from django.urls import path
 
-from django.contrib.auth import views as auth_views
-from .forms import BootstrapAuthenticationForm
-
 urlpatterns = [
     path('inscription/' , InscriptionView.as_view(), name='inscription'),
-    
-    path('login/', auth_views.LoginView.as_view(authentication_form=BootstrapAuthenticationForm,template_name='registration/login.html'),name='login'),
-         
          
     path('connexion/', LoginView.as_view(),  name='login'),
     path('deconnexion', LogoutView.as_view(), name='logout'),

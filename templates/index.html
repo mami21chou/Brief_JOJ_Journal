@@ -1,51 +1,65 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil — JOJ NEWS{% endblock %}
 
 {% block content %}
 
 <!-- HERO -->
 <section class="hero mb-5">
-  <h1 class="fw-bold">🏅 JOJ News Dakar 2026</h1>
-  <p class="lead">Le Journal Officiel des Supporters</p>
-  <a href="{% url 'liste_article' %}" class="btn btn-light mt-3">Voir les articles</a>
+  <div class="container">
+    <div class="rings">○ ○ ○ ○ ○</div>
+    <h1 class="fw-bold display-5">JOJ News Dakar 2026</h1>
+    <p class="lead opacity-90">Le Journal Officiel des Supporters</p>
+    <a href="{% url 'liste_article' %}" class="btn btn-accent mt-2">
+      Voir les articles <i class="bi bi-arrow-right ms-1"></i>
+    </a>
+  </div>
 </section>
 
 <!-- ARTICLES -->
-<div class="row">
+<div class="container">
 
-{% for article in articles  %}
+  <div class="section-heading mb-4">
+    <i class="bi bi-fire"></i> Dernières actualités
+  </div>
 
-  <div class="col-md-4 mb-4">
-    <div class="card h-100 shadow-sm">
-      {% if article.image %}
-        <img src="{{ article.image.url }}" class="card-img-top">
-      {% else %}
-        <img src="{% static 'images/joj.jpeg' %}" class="card-img-top">
-
-      {% endif %}
-      <div class="card-body">
-        catégorie: <span class="badge bg-secondary mb-2">{{ article.categorie }}</span>
-        <h5 class="card-title">{{ article.titre }}</h5>
-        <p class="text-muted">Publié par {{ article.user }} • le {{ article.date_publication }}</p>
-        <p>{{ article.contenu|truncatewords:10 }}...</p>
-        <a href="{% url 'detail_article' article.id %}" class="btn btn-primary btn-sm">Lire la suite →</a>
+  <div class="row g-4">
+    {% for article in articles %}
+    <div class="col-md-4">
+      <div class="card h-100">
+        {% if article.image %}
+          <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.titre }}">
+        {% else %}
+          <img src="{% static 'images/joj.jpeg' %}" class="card-img-top" alt="JOJ Dakar 2026">
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+          <span class="badge bg-secondary mb-2 align-self-start">{{ article.categorie }}</span>
+          <h5 class="card-title">{{ article.titre }}</h5>
+          <p class="text-muted small">
+            <i class="bi bi-person me-1"></i>{{ article.user }}
+            &nbsp;•&nbsp;
+            <i class="bi bi-calendar3 me-1"></i>{{ article.date_publication }}
+          </p>
+          <p class="flex-grow-1">{{ article.contenu|truncatewords:12 }}…</p>
+          <a href="{% url 'detail_article' article.id %}" class="btn btn-primary btn-sm align-self-start mt-auto">
+            Lire la suite <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-{% empty %}
-
-<div class="col-md-12">
-  <div class="text-center py-5">
-    <div style="font-size:3.5rem; margin-bottom:.75rem;">📭</div>
-      <h5 style="color:#888;">Aucun article publié</h5>
-      <p class="text-muted small">Revenez bientôt, les organisateurs publient régulièrement.</p>
-      <a href="{% url 'liste_article' %}" class="btn btn-primary mt-2">Voir tous les articles</a>
+    {% empty %}
+    <div class="col-12">
+      <div class="text-center py-5">
+        <div style="font-size:3.5rem;margin-bottom:.75rem;">📭</div>
+        <h5 class="text-muted">Aucun article publié</h5>
+        <p class="text-muted small">Revenez bientôt, les organisateurs publient régulièrement.</p>
+        <a href="{% url 'liste_article' %}" class="btn btn-primary mt-2">Voir tous les articles</a>
+      </div>
     </div>
+    {% endfor %}
   </div>
-</div>
- {% endfor %}
+
 </div>
 
 {% endblock %}
