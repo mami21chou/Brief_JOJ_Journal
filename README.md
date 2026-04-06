@@ -126,17 +126,18 @@ Champs :
 ## Installation du projet
 
 ### 1. Cloner le projet
-git clone <url-du-repository>
+
+git clone url-du-repository
 
 cd nom_repository_clone
 ---
 
 ### 2. Créer un environnement virtuel
-python -m venv .venv
+- python -m venv .venv
 
-Linux: source .venv/bin/activate
+- Linux: source .venv/bin/activate
 
-Windows : .venv\Scripts\activate
+- Windows : .venv\Scripts\activate
 
 ---
 
@@ -149,12 +150,12 @@ pip install -r requirements.txt
 
 ### 4. Configurer la base de données
 
-Créer un fichier `.env` :
-DB_NAME=dbname
-DB_USER=usernamedb
-DB_PASSWORD=motdepasse
-DB_HOST=localhost
-DB_PORT=3306
+Créer un fichier `.env` à la racine du projet:
+- DB_NAME=dbname
+- DB_USER=usernamedb
+- DB_PASSWORD=motdepasse
+- DB_HOST=localhost
+- DB_PORT=3306
 
 
 Configurer dans `settings.py`.
@@ -231,6 +232,7 @@ Les emails seront affichés dans le terminal.
 - Filtrage par catégorie
 - Upload multiple d’images
 - Notifications en base de données
+- Ajoustement du design plus propre
 
 ---
 
