@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from .forms import CommentaireForm
 from django.contrib.auth.decorators import login_required
 
@@ -15,23 +15,42 @@ class InscriptionView(CreateView):
 
 
 def home(request):
+    # Récuperer les trois articles les plus recents
     articles = Article.objects.filter(statut=1).order_by('-date_publication')[:3]
     return render(request, 'index.html', {'articles': articles})
 
+
 def liste_article(request):
-    articles=Article.objects.filter(statut=1).order_by('-date_publication')
+    
+    # Catégorie selectionné
+    categorie_filtre = request.GET.get('categorie')
+    
+    # Filtrer par catégorie
+    if categorie_filtre:
+        articles = Article.objects.filter(categorie__nom=categorie_filtre).order_by('-date_publication')
+        
+    else:
+        articles=Article.objects.filter(statut=1).order_by('-date_publication')
+        
+    # Récuperer tout les catégories
     categories = Categorie.objects.all()
     
     context = {
         'categories': categories,
         'articles':articles,
+        'categorie_active': categorie_filtre,
     }
     
     return render(request, 'article_list.html',context)
 
+
+
 def  detail_article(request,id):
+    
+    # recuper l'article
     article=get_object_or_404(Article,pk=id)
     
+    # récuper les commentaires associé à l'article
     commentaires = Commentaire.objects.filter(article=article).order_by('-date_publication')
     
     form = CommentaireForm()
@@ -55,10 +74,9 @@ def  detail_article(request,id):
     }
     return render(request, 'article_detail.html',context)    
 
-
-
 @login_required
 def supprimer_commentaire(request, id):
+    # Récuperer le commetaire à supprimer
     commentaire = get_object_or_404(Commentaire, id=id)
     
     # verifier l'auteur du commentaire
@@ -77,6 +95,7 @@ def supprimer_commentaire(request, id):
 
 @login_required
 def modifier_commentaire(request, id):
+    # Récuperer le commetaire à supprimer
     commentaire = get_object_or_404(Commentaire, id=id)
     
     # verifier l'auteur du commentaire

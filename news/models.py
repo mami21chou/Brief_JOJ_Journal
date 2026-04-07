@@ -15,8 +15,8 @@ class Article(models.Model):
     image = models.ImageField(verbose_name="image", upload_to="articles/", blank=True, null=True)
     
     statut = models.IntegerField(verbose_name="status article", choices=STATUS, default=0)
-    date_creation = models.DateField(verbose_name="date creation", auto_now_add=True)
-    date_publication = models.DateField(verbose_name="date publication", auto_now=True)
+    date_creation = models.DateTimeField(verbose_name="date creation", auto_now_add=True)
+    date_publication = models.DateTimeField(verbose_name="date publication", auto_now=True)
     
     user = models.ForeignKey(User, verbose_name="Utilisateurs", on_delete=models.CASCADE)
     categorie = models.ForeignKey(Categorie, verbose_name="categorie article", on_delete=models.CASCADE)
@@ -29,7 +29,7 @@ class Article(models.Model):
 
 class Commentaire(models.Model):
     message = models.TextField(verbose_name="message commentaire")
-    date_publication = models.DateField(auto_now_add=True)
+    date_publication = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
 

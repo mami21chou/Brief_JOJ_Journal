@@ -31,6 +31,7 @@ Ce projet est réalisé dans un cadre pédagogique en binôme.
 - Organisation des articles par catégories
 - Affichage liste des articles
 - Affichage détail d’un article
+- Filtrage par catégorie
 
 ### Gestion des commentaires
 
@@ -229,10 +230,10 @@ Les emails seront affichés dans le terminal.
 
 - Pagination des articles
 - Recherche d’articles
-- Filtrage par catégorie
 - Upload multiple d’images
 - Notifications en base de données
 - Ajoustement du design plus propre
+- Intégration IA pour résumer le contenu de l'article
 
 ---
 

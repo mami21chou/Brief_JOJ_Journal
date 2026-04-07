@@ -9,7 +9,6 @@
 
       <!-- EN-TÊTE -->
       <div class="auth-header">
-        <div class="auth-logo">🎽</div>
         <h2 class="auth-title">Créer un compte</h2>
         <p class="auth-subtitle">Rejoignez la communauté des supporters JOJ</p>
       </div>
@@ -39,9 +38,9 @@
               {% for e in form.password1.errors %}<li>{{ e }}</li>{% endfor %}
             </ul>
           {% endif %}
-          {% if form.password1.help_text %}
+          {% comment %} {% if form.password1.help_text %}
             <div class="helptext mt-1">{{ form.password1.help_text }}</div>
-          {% endif %}
+          {% endif %} {% endcomment %}
         </div>
 
         <div class="mb-4">
